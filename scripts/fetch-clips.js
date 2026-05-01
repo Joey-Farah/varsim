@@ -14,21 +14,29 @@ if (!API_KEY) {
 }
 
 const CLIPS_PATH = resolve(__dirname, '../src/data/clips.json')
-const MAX_PER_QUERY = 15
+const MAX_PER_QUERY = 25
 
 const SEARCH_QUERIES = [
-  'VAR penalty kick awarded overturned Premier League 2024',
-  'handball penalty box decision VAR review 2024 soccer',
-  'VAR overturns penalty simulation diving soccer football 2024',
-  'straight red card serious foul play Champions League 2024',
-  'red card overturned reversed VAR soccer football 2024',
-  'red card reduced yellow card VAR review soccer 2024',
-  'controversial referee penalty decision La Liga Serie A 2024',
-  'VAR decision red card violent conduct soccer 2023 2024',
-  'penalty denied overturned simulation VAR review 2023',
-  'controversial referee decision VAR Premier League 2023 2024',
-  'red card rescinded downgraded yellow Champions League 2023',
-  'handball no penalty VAR decision soccer 2024',
+  // Penalty decisions — competition-specific
+  'Premier League VAR penalty decision 2024 referee',
+  'Champions League penalty VAR review referee 2024',
+  'La Liga VAR penalty decision referee 2024',
+  'Premier League handball penalty box VAR 2024',
+  'Champions League handball penalty decision VAR 2024',
+  'Premier League penalty overturned VAR simulation 2024',
+  'Euro 2024 VAR penalty decision referee controversial',
+
+  // Red card decisions — competition-specific
+  'Premier League red card VAR review referee 2024',
+  'Champions League red card serious foul play 2024',
+  'Premier League red card overturned VAR yellow card 2024',
+  'Champions League red card rescinded VAR 2023 2024',
+  'La Liga red card VAR review referee 2024',
+
+  // Broader but still anchored to competitions
+  'Premier League controversial referee decision VAR 2023',
+  'Champions League controversial referee decision VAR 2023',
+  'World Cup VAR penalty red card decision controversial',
 ]
 
 const DECISION_LABEL = {
@@ -39,10 +47,24 @@ const DECISION_LABEL = {
   red_card: 'Red Card',
 }
 
-// Returns true for compilation/explainer/highlight-reel titles we want to skip
-function isSingleIncident(title) {
+function isQualityClip(title) {
   const t = title.toLowerCase()
-  return !/compilation|best of|top\s+\d+|every\s+(penalty|red card|foul)|rule(s)?\s+explain|how to ref|season review|week\s+\d+\s+review/.test(t)
+
+  // Hard reject: compilations, explainers, fan edits, reactions
+  if (/compilation|best\s+of|top\s+\d+|every\s+(penalty|red\s*card|foul)|rule(s)?\s+explain|how\s+to\s+ref|season\s+review|week\s+\d+\s+review|fan\s+edit|reaction\s+video|reacts?\s+to|funny\s+(referee|foul)|bloopers?/.test(t)) return false
+
+  // Hard reject: excessive emojis (fan clickbait) — allow up to 5
+  if ((title.match(/\p{Emoji_Presentation}/gu) ?? []).length > 5) return false
+
+  // Must mention a real competition or specific team — generic "soccer foul" videos are useless
+  const hasCompetition = /(premier\s+league|champions\s+league|\bucl\b|la\s+liga|bundesliga|serie\s+a|ligue\s+1|world\s+cup|euro\s+20\d\d|fa\s+cup|europa\s+league|\buel\b|copa\s+america|afcon|carabao|nations\s+league)/i.test(t)
+  const hasTeam = /\b(united|man\s+city|arsenal|chelsea|liverpool|tottenham|spurs|real\s+madrid|barcelona|juventus|inter\s+milan|ac\s+milan|psg|dortmund|bayern|atletico|napoli|benfica|porto|ajax|celtic|newcastle|aston\s+villa|west\s+ham|sunderland|brentford|fulham|everton|leicester|wolves)\b/i.test(t)
+  const hasYear = /20(1[6-9]|2[0-9])/.test(title)
+
+  // Must have referee context AND at least one specificity signal
+  const hasRefContext = /\b(VAR|referee|penalty|red\s+card|foul|handball|offside|var\s+review|straight\s+red)\b/i.test(t)
+
+  return hasRefContext && (hasCompetition || hasTeam || hasYear)
 }
 
 // Parse ISO 8601 duration (e.g. PT4M23S) into total seconds
@@ -200,6 +222,7 @@ async function searchYouTube(query) {
     type: 'video',
     videoCategoryId: '17',
     videoEmbeddable: 'true',
+    videoDefinition: 'high',
     maxResults: String(MAX_PER_QUERY),
     relevanceLanguage: 'en',
     key: API_KEY,
@@ -280,10 +303,10 @@ async function main() {
     if (video.status?.embeddable === false) { skippedEmbeddable++; continue }
 
     const durationSecs = parseDuration(video.contentDetails?.duration ?? 'PT0S')
-    if (durationSecs > 480 || durationSecs < 15) { skippedDuration++; continue }
+    if (durationSecs > 720 || durationSecs < 10) { skippedDuration++; continue }
 
     const title = video.snippet?.title ?? ''
-    if (!isSingleIncident(title)) { skippedCompilation++; continue }
+    if (!isQualityClip(title)) { skippedCompilation++; continue }
 
     const description = video.snippet?.description ?? ''
     const publishedAt = video.snippet?.publishedAt ?? ''

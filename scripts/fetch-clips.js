@@ -132,20 +132,28 @@ function parseSeason(title, publishedAt) {
 }
 
 function parseStartSeconds(description) {
-  const lines = description.split('\n').slice(0, 40).join('\n')
-  const patterns = [
-    /(?:incident|foul|challenge|tackle|penalty|handball|offence|offense|red\s+card|yellow\s+card).{0,40}?(\d{1,2}):(\d{2})/i,
-    /(\d{1,2}):(\d{2}).{0,40}(?:incident|foul|challenge|tackle|penalty|handball|card)/i,
-    /^(\d{1,2}):(\d{2})/m,
+  const lines = description.split('\n').slice(0, 60).join('\n')
+
+  // Priority: timestamps explicitly labelled near incident keywords
+  const labeled = [
+    /(?:incident|foul|challenge|tackle|penalty|handball|offence|offense|red\s+card|yellow\s+card|the\s+challenge|the\s+moment).{0,50}?(\d{1,2}):(\d{2})/i,
+    /(\d{1,2}):(\d{2}).{0,50}(?:incident|foul|challenge|tackle|penalty|handball|card|moment)/i,
   ]
-  for (const p of patterns) {
+  for (const p of labeled) {
     const m = lines.match(p)
     if (m) {
-      const mins = parseInt(m[1])
-      const secs = parseInt(m[2])
+      const mins = parseInt(m[1]), secs = parseInt(m[2])
       if (mins < 60) return mins * 60 + secs
     }
   }
+
+  // Fallback: first timestamp that appears in a chapter/jump list (lines like "0:15 Something")
+  const chapterLine = lines.match(/^(\d{1,2}):(\d{2})\s+\S/m)
+  if (chapterLine) {
+    const mins = parseInt(chapterLine[1]), secs = parseInt(chapterLine[2])
+    if (mins < 60) return mins * 60 + secs
+  }
+
   return 0
 }
 
@@ -296,7 +304,7 @@ async function main() {
       decision,
       decisionLabel: DECISION_LABEL[decision],
       explanation: generateExplanation(title, description, decision),
-      clipDuration: 8,
+      clipDuration: 15,
       varInvolved: /(VAR|video\s+assistant\s+referee)/i.test(title + description),
     })
   }

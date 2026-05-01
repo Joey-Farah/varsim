@@ -61,9 +61,10 @@ export default function App() {
         <VideoPlayer
           youtubeId={clip.youtubeId}
           startSeconds={clip.startSeconds}
-          clipDuration={phase === 'watching' || phase === 'deciding' ? clip.clipDuration ?? 8 : undefined}
+          clipDuration={phase === 'watching' || phase === 'deciding' ? clip.clipDuration ?? 15 : undefined}
           onClipEnd={handleClipEnd}
           resumed={phase === 'reveal'}
+          muted={phase !== 'reveal'}
         />
 
         {phase === 'watching' && (

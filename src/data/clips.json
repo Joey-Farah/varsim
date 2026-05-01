@@ -1,47 +1,224 @@
 [
   {
-    "id": "clip_001",
-    "youtubeId": "REPLACE_WITH_YOUTUBE_ID",
-    "title": "Handball in the Box — Premier League",
-    "competition": "Premier League",
+    "id": "clip_6NB_bBIrtUg",
+    "youtubeId": "6NB_bBIrtUg",
+    "title": "It Was A Penalty for Westham #epl #westham #manchesterunited",
+    "competition": "Professional Soccer",
     "season": "2023/24",
-    "teams": "Arsenal vs Manchester City",
-    "context": "Ball strikes defender's arm inside the penalty area. Was the arm in an unnatural position?",
+    "teams": "",
+    "context": "A challenge inside the penalty area. Does this deserve a spot kick?",
     "startSeconds": 0,
-    "decisions": ["no_foul", "penalty"],
+    "decisions": [
+      "no_foul",
+      "penalty"
+    ],
     "decision": "penalty",
     "decisionLabel": "Penalty Kick",
-    "explanation": "VAR reviewed and upheld the on-field decision. The arm was deemed to be in an unnatural position, making the body unnaturally bigger.",
+    "explanation": "Here is the Premier League statement on West Ham penalty incident against Manchester United. “The referee did not award a penalty to West Ham for a challenge by de Ligt on Ings”.",
     "varInvolved": true
   },
   {
-    "id": "clip_002",
-    "youtubeId": "REPLACE_WITH_YOUTUBE_ID",
-    "title": "Late Sliding Tackle — Champions League",
-    "competition": "UEFA Champions League",
-    "season": "2023/24",
-    "teams": "Real Madrid vs Bayern Munich",
-    "context": "Defender slides in from behind, catches the ball but also the player. Straight red or just a yellow?",
+    "id": "clip_udB85IYDHnk",
+    "youtubeId": "udB85IYDHnk",
+    "title": "Yellow TWICE and NOT! 🤔🟨",
+    "competition": "Professional Soccer",
+    "season": "2022/23",
+    "teams": "",
+    "context": "The attacker goes down. Is this a foul or simulation?",
     "startSeconds": 0,
-    "decisions": ["no_foul", "foul", "yellow_card", "red_card"],
+    "decisions": [
+      "no_foul",
+      "penalty"
+    ],
+    "decision": "no_foul",
+    "decisionLabel": "No Foul",
+    "explanation": "Adli saw the yellow card twice for diving against Bayern. But twice the referee denied his decision after reviewing the scenes and decided on penalty!",
+    "varInvolved": false
+  },
+  {
+    "id": "clip_6zZ7ZRj441c",
+    "youtubeId": "6zZ7ZRj441c",
+    "title": "VAR Drama! Sunderland’s Penalty Reversed vs Manchester United | Controversial Decision Explained",
+    "competition": "Professional Soccer",
+    "season": "2024/25",
+    "teams": "s Penalty Reversed vs Manchester United",
+    "context": "A challenge inside the penalty area. Does this deserve a spot kick?",
+    "startSeconds": 0,
+    "decisions": [
+      "no_foul",
+      "penalty"
+    ],
+    "decision": "no_foul",
+    "decisionLabel": "No Foul",
+    "explanation": "Sunderland’s Penalty Reversed vs Manchester United | Controversial Decision Explained Watch the intense VAR controversy from the Manchester United vs Sunderland match where a penalty for Sunderland was awarded then overturned after a VAR review. Referee Stuart Attwell ruled no foul after checking the footage, sparking debate among experts.",
+    "varInvolved": true
+  },
+  {
+    "id": "clip_dH2lM3yPgqw",
+    "youtubeId": "dH2lM3yPgqw",
+    "title": "Merino handball, denied penalty and Arteta red card luck - Arsenal vs Inter Milan referee review",
+    "competition": "Professional Soccer",
+    "season": "2023/24",
+    "teams": "Arsenal vs Inter Milan referee review",
+    "context": "Ball strikes the defender's arm inside the penalty area. Was it in a natural position?",
+    "startSeconds": 0,
+    "decisions": [
+      "no_foul",
+      "penalty"
+    ],
+    "decision": "penalty",
+    "decisionLabel": "Penalty Kick",
+    "explanation": "They were punished by a controversial penalty call and not rewarded one at the other end on the night. There was plenty of fallout and discussion post-match including from the manager himself who was critical of the decisions in the game but praising of his side.",
+    "varInvolved": true
+  },
+  {
+    "id": "clip_1RgFCz9qdhk",
+    "youtubeId": "1RgFCz9qdhk",
+    "title": "Controversial Red Cards In Football 🟥🤯",
+    "competition": "Professional Soccer",
+    "season": "2023/24",
+    "teams": "",
+    "context": "A challenge that had the referee reaching for a card. Red or yellow?",
+    "startSeconds": 0,
+    "decisions": [
+      "no_foul",
+      "foul",
+      "yellow_card",
+      "red_card"
+    ],
     "decision": "red_card",
     "decisionLabel": "Red Card",
-    "explanation": "The referee issued a straight red card for serious foul play. The tackle endangered the safety of the opponent despite making contact with the ball.",
+    "explanation": "The referee issued a straight red card for serious foul play. The challenge was deemed to endanger the safety of the opponent.",
+    "varInvolved": false
+  },
+  {
+    "id": "clip_BufbPN_QBSs",
+    "youtubeId": "BufbPN_QBSs",
+    "title": "Is this a straight red card?             #ellatoone #redcard #manunited #womensfootball",
+    "competition": "Professional Soccer",
+    "season": "2022/23",
+    "teams": "",
+    "context": "A challenge that had the referee reaching for a card. Red or yellow?",
+    "startSeconds": 0,
+    "decisions": [
+      "no_foul",
+      "foul",
+      "yellow_card",
+      "red_card"
+    ],
+    "decision": "red_card",
+    "decisionLabel": "Red Card",
+    "explanation": "The referee issued a straight red card for serious foul play. The challenge was deemed to endanger the safety of the opponent.",
+    "varInvolved": false
+  },
+  {
+    "id": "clip_APks-052lD8",
+    "youtubeId": "APks-052lD8",
+    "title": "Straight Red Card 10 Minutes Into A Cup Final!",
+    "competition": "Professional Soccer",
+    "season": "2022/23",
+    "teams": "",
+    "context": "A challenge that had the referee reaching for a card. Red or yellow?",
+    "startSeconds": 0,
+    "decisions": [
+      "no_foul",
+      "foul",
+      "yellow_card",
+      "red_card"
+    ],
+    "decision": "red_card",
+    "decisionLabel": "Red Card",
+    "explanation": "The referee issued a straight red card for serious foul play. The challenge was deemed to endanger the safety of the opponent.",
+    "varInvolved": false
+  },
+  {
+    "id": "clip_JlOVdiMpeBY",
+    "youtubeId": "JlOVdiMpeBY",
+    "title": "Mali equalizes with a penalty, and controversy erupts against Morocco",
+    "competition": "Professional Soccer",
+    "season": "2024/25",
+    "teams": "",
+    "context": "A challenge inside the penalty area. Does this deserve a spot kick?",
+    "startSeconds": 0,
+    "decisions": [
+      "no_foul",
+      "penalty"
+    ],
+    "decision": "penalty",
+    "decisionLabel": "Penalty Kick",
+    "explanation": "In a play that initially seemed harmless, a scuffle broke out in midfield, and after a VAR review, a penalty was awarded to Mali, allowing them to equalize against Morocco.",
     "varInvolved": true
   },
   {
-    "id": "clip_003",
-    "youtubeId": "REPLACE_WITH_YOUTUBE_ID",
-    "title": "Simulation or Foul? — La Liga",
-    "competition": "La Liga",
-    "season": "2023/24",
-    "teams": "Barcelona vs Atletico Madrid",
-    "context": "Striker goes down under minimal contact in the box. Penalty or simulation?",
+    "id": "clip_6xpMD9W_-d4",
+    "youtubeId": "6xpMD9W_-d4",
+    "title": "This is why NO PENALTY | Spain vs Germany Euro 2024",
+    "competition": "UEFA Euro",
+    "season": "2024/25",
+    "teams": "Spain vs Germany Euro",
+    "context": "A challenge inside the penalty area. Does this deserve a spot kick?",
     "startSeconds": 0,
-    "decisions": ["no_foul", "penalty"],
+    "decisions": [
+      "no_foul",
+      "penalty"
+    ],
     "decision": "no_foul",
-    "decisionLabel": "No Foul — Simulation",
-    "explanation": "After VAR review, the referee reversed the penalty decision. The contact was deemed insufficient to cause the fall — yellow card for simulation instead.",
+    "decisionLabel": "No Foul",
+    "explanation": "#anthonytaylor #penalty #handball #explained #explain #euro2024",
+    "varInvolved": false
+  },
+  {
+    "id": "clip_PwLYzcwE770",
+    "youtubeId": "PwLYzcwE770",
+    "title": "NO PENALTY?! El Clásico ERUPTS After SHOCKING Handball Decision – Travis Scott GOES WILD!",
+    "competition": "Professional Soccer",
+    "season": "2024/25",
+    "teams": "",
+    "context": "Ball strikes the defender's arm inside the penalty area. Was it in a natural position?",
+    "startSeconds": 0,
+    "decisions": [
+      "no_foul",
+      "penalty"
+    ],
+    "decision": "no_foul",
+    "decisionLabel": "No Foul",
+    "explanation": "El Clásico ERUPTS After SHOCKING Handball Decision – Travis Scott GOES WILD! In the 77th minute, Aurélien Tchouaméni’s blatant handball inside the box was checked by VAR… yet no penalty was given to Barcelona.",
+    "varInvolved": true
+  },
+  {
+    "id": "clip_6ly6fUcNsvI",
+    "youtubeId": "6ly6fUcNsvI",
+    "title": "Spain vs Germany Controversy 😳 | No Penalty, Kimmich Loses Control 🔥⚽",
+    "competition": "Professional Soccer",
+    "season": "2025/26",
+    "teams": "",
+    "context": "A challenge inside the penalty area. Does this deserve a spot kick?",
+    "startSeconds": 0,
+    "decisions": [
+      "no_foul",
+      "penalty"
+    ],
+    "decision": "no_foul",
+    "decisionLabel": "No Foul",
+    "explanation": "Jamal Musiala fires a shot — the ball clearly hits the hand of Marc Cucurella, but the referee refuses to award a penalty. One decision changed the emotions of the entire match.",
+    "varInvolved": true
+  },
+  {
+    "id": "clip_uuIjR00Kjjo",
+    "youtubeId": "uuIjR00Kjjo",
+    "title": "😳Marc Cucurella Hand Ball No Penalty Given: Fans React !! 🤯",
+    "competition": "Professional Soccer",
+    "season": "2023/24",
+    "teams": "",
+    "context": "A challenge inside the penalty area. Does this deserve a spot kick?",
+    "startSeconds": 0,
+    "decisions": [
+      "no_foul",
+      "penalty"
+    ],
+    "decision": "no_foul",
+    "decisionLabel": "No Foul",
+    "explanation": "#marccucurellahandball #nopenaltymarccucurellahandball #reactionmarccucurellahandball The incident involving Marc Cucurella and the potential handball occurred during the UEFA Euro 2024 match between Germany and Spain. In a tense moment for Germany, a cross was delivered into the Spanish penalty area.",
     "varInvolved": true
   }
 ]

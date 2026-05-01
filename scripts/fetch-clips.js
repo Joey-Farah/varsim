@@ -39,20 +39,33 @@ const DECISION_LABEL = {
   red_card: 'Red Card',
 }
 
+// Returns true for compilation/explainer/highlight-reel titles we want to skip
+function isSingleIncident(title) {
+  const t = title.toLowerCase()
+  return !/compilation|best of|top\s+\d+|every\s+(penalty|red card|foul)|rule(s)?\s+explain|how to ref|season review|week\s+\d+\s+review/.test(t)
+}
+
+// Parse ISO 8601 duration (e.g. PT4M23S) into total seconds
+function parseDuration(iso) {
+  const m = iso.match(/PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?/)
+  if (!m) return 0
+  return (parseInt(m[1] ?? 0) * 3600) + (parseInt(m[2] ?? 0) * 60) + parseInt(m[3] ?? 0)
+}
+
 function inferDecision(title, description) {
   const t = (title + ' ' + description.slice(0, 600)).toLowerCase()
+
+  // Check no-penalty signals FIRST — before any penalty-positive patterns
+  if (/penalty\s+(was\s+)?(overturned|reversed|denied|cancelled|canceled|rescinded|wrong|incorrect)\b/.test(t)) return 'no_foul'
+  if (/\bvar\s+overturns?\s+(the\s+)?penalty\b/.test(t)) return 'no_foul'
+  if (/\bno\s+penalty\b|\bnot\s+a\s+penalty\b/.test(t)) return 'no_foul'
+  if (/(simulation|simulates?|diving|dives?).{0,40}(yellow|booked|card)/.test(t)) return 'no_foul'
+  if (/(yellow|booking).{0,40}(simulation|dive|diving)/.test(t)) return 'no_foul'
 
   // Penalty awarded
   if (/penalty\s+(was\s+)?(awarded|given|stands|upheld|confirmed|correct)\b/.test(t)) return 'penalty'
   if (/\bawards?\s+a?\s*penalty\b/.test(t)) return 'penalty'
-  if (/handball.{0,40}penalty(?!.{0,60}(overturned|reversed|denied|cancelled|no\s+penalty))/.test(t)) return 'penalty'
-
-  // Penalty overturned / no foul / simulation
-  if (/penalty\s+(was\s+)?(overturned|reversed|denied|cancelled|canceled|rescinded|wrong|incorrect)\b/.test(t)) return 'no_foul'
-  if (/\bvar\s+overturns?\s+(the\s+)?penalty\b/.test(t)) return 'no_foul'
-  if (/\bno\s+penalty\b|\bnot\s+a\s+penalty\b/.test(t)) return 'no_foul'
-  if (/(simulation|simulates?|diving|dives?)\s.{0,40}(yellow|booked|card)/.test(t)) return 'no_foul'
-  if (/(yellow|booking).{0,40}(simulation|dive|diving)/.test(t)) return 'no_foul'
+  if (/handball.{0,40}penalty/.test(t)) return 'penalty'
 
   // Red card downgraded to yellow
   if (/red\s+card\s+(overturned|reversed|rescinded|reduced|downgraded|changed\s+to\s+yellow)\b/.test(t)) return 'yellow_card'
@@ -195,7 +208,7 @@ async function searchYouTube(query) {
 async function getVideoDetails(videoIds) {
   if (!videoIds.length) return []
   const params = new URLSearchParams({
-    part: 'snippet,status',
+    part: 'snippet,status,contentDetails',
     id: videoIds.join(','),
     key: API_KEY,
   })
@@ -251,12 +264,19 @@ async function main() {
   // Process into clips
   const newClips = []
   let skippedEmbeddable = 0
+  let skippedDuration = 0
+  let skippedCompilation = 0
   let skippedUncertain = 0
 
   for (const video of allVideos) {
     if (video.status?.embeddable === false) { skippedEmbeddable++; continue }
 
+    const durationSecs = parseDuration(video.contentDetails?.duration ?? 'PT0S')
+    if (durationSecs > 480 || durationSecs < 15) { skippedDuration++; continue }
+
     const title = video.snippet?.title ?? ''
+    if (!isSingleIncident(title)) { skippedCompilation++; continue }
+
     const description = video.snippet?.description ?? ''
     const publishedAt = video.snippet?.publishedAt ?? ''
 
@@ -283,8 +303,10 @@ async function main() {
   console.log(`\nResults`)
   console.log(`  Candidates:        ${allVideos.length}`)
   console.log(`  Added:             ${newClips.length}`)
-  console.log(`  Skipped (no embed): ${skippedEmbeddable}`)
-  console.log(`  Skipped (uncertain): ${skippedUncertain}`)
+  console.log(`  Skipped (no embed):    ${skippedEmbeddable}`)
+  console.log(`  Skipped (too long/short): ${skippedDuration}`)
+  console.log(`  Skipped (compilation): ${skippedCompilation}`)
+  console.log(`  Skipped (uncertain):   ${skippedUncertain}`)
 
   const finalClips = [...existing, ...newClips]
   writeFileSync(CLIPS_PATH, JSON.stringify(finalClips, null, 2))

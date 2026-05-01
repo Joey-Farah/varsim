@@ -63,7 +63,7 @@ export default function App() {
             <p className="text-center text-sm text-gray-400 uppercase tracking-widest font-semibold">
               What's your call?
             </p>
-            <DecisionPanel onDecide={handleDecide} disabled={false} />
+            <DecisionPanel onDecide={handleDecide} disabled={false} allowedDecisions={clip.decisions} />
           </div>
         ) : (
           <RevealScreen clip={clip} userDecision={userDecision} onNext={handleNext} />

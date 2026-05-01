@@ -6,10 +6,14 @@ const DECISIONS = [
   { value: 'red_card', label: 'Red Card', color: 'bg-red-600 hover:bg-red-500', icon: '🟥' },
 ]
 
-export default function DecisionPanel({ onDecide, disabled }) {
+export default function DecisionPanel({ onDecide, disabled, allowedDecisions }) {
+  const visible = allowedDecisions
+    ? DECISIONS.filter((d) => allowedDecisions.includes(d.value))
+    : DECISIONS
+
   return (
-    <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-5">
-      {DECISIONS.map(({ value, label, color, icon }) => (
+    <div className="flex flex-wrap justify-center gap-3">
+      {visible.map(({ value, label, color, icon }) => (
         <button
           key={value}
           disabled={disabled}

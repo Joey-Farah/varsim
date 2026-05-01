@@ -12,11 +12,15 @@ function pickRandom(arr, exclude) {
 
 export default function App() {
   const [clip, setClip] = useState(() => clips[Math.floor(Math.random() * clips.length)])
-  const [phase, setPhase] = useState('decide') // 'decide' | 'reveal'
+  const [phase, setPhase] = useState('watching') // 'watching' | 'deciding' | 'reveal'
   const [userDecision, setUserDecision] = useState(null)
   const [score, setScore] = useState(0)
   const [total, setTotal] = useState(0)
   const [streak, setStreak] = useState(0)
+
+  const handleClipEnd = useCallback(() => {
+    setPhase('deciding')
+  }, [])
 
   const handleDecide = useCallback((decision) => {
     const correct = decision === clip.decision
@@ -30,7 +34,7 @@ export default function App() {
   const handleNext = useCallback(() => {
     setClip(pickRandom(clips, clip.id))
     setUserDecision(null)
-    setPhase('decide')
+    setPhase('watching')
   }, [clip])
 
   return (
@@ -47,25 +51,37 @@ export default function App() {
         <div className="flex flex-col gap-1">
           <div className="flex items-center gap-2 text-xs text-gray-400 uppercase tracking-widest">
             <span>{clip.competition}</span>
-            <span>·</span>
-            <span>{clip.teams}</span>
+            {clip.teams && <><span>·</span><span>{clip.teams}</span></>}
             <span>·</span>
             <span>{clip.season}</span>
           </div>
-          <h2 className="text-xl font-bold">{clip.title}</h2>
           <p className="text-gray-300 text-sm">{clip.context}</p>
         </div>
 
-        <VideoPlayer youtubeId={clip.youtubeId} startSeconds={clip.startSeconds} />
+        <VideoPlayer
+          youtubeId={clip.youtubeId}
+          startSeconds={clip.startSeconds}
+          clipDuration={phase === 'watching' || phase === 'deciding' ? clip.clipDuration ?? 8 : undefined}
+          onClipEnd={handleClipEnd}
+          resumed={phase === 'reveal'}
+        />
 
-        {phase === 'decide' ? (
+        {phase === 'watching' && (
+          <div className="text-center text-sm text-gray-500 uppercase tracking-widest animate-pulse">
+            Watch the incident...
+          </div>
+        )}
+
+        {phase === 'deciding' && (
           <div className="flex flex-col gap-3">
             <p className="text-center text-sm text-gray-400 uppercase tracking-widest font-semibold">
               What's your call?
             </p>
             <DecisionPanel onDecide={handleDecide} disabled={false} allowedDecisions={clip.decisions} />
           </div>
-        ) : (
+        )}
+
+        {phase === 'reveal' && (
           <RevealScreen clip={clip} userDecision={userDecision} onNext={handleNext} />
         )}
       </main>

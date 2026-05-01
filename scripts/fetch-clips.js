@@ -296,6 +296,7 @@ async function main() {
       decision,
       decisionLabel: DECISION_LABEL[decision],
       explanation: generateExplanation(title, description, decision),
+      clipDuration: 8,
       varInvolved: /(VAR|video\s+assistant\s+referee)/i.test(title + description),
     })
   }

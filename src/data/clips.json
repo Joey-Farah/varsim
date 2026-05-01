@@ -1,0 +1,44 @@
+[
+  {
+    "id": "clip_001",
+    "youtubeId": "dQw4w9WgXcQ",
+    "title": "Handball in the Box — Premier League",
+    "competition": "Premier League",
+    "season": "2023/24",
+    "teams": "Arsenal vs Manchester City",
+    "context": "Ball strikes defender's arm inside the penalty area. Was the arm in an unnatural position?",
+    "startSeconds": 0,
+    "decision": "penalty",
+    "decisionLabel": "Penalty Kick",
+    "explanation": "VAR reviewed and upheld the on-field decision. The arm was deemed to be in an unnatural position, making the body unnaturally bigger.",
+    "varInvolved": true
+  },
+  {
+    "id": "clip_002",
+    "youtubeId": "dQw4w9WgXcQ",
+    "title": "Late Sliding Tackle — Champions League",
+    "competition": "UEFA Champions League",
+    "season": "2023/24",
+    "teams": "Real Madrid vs Bayern Munich",
+    "context": "Defender slides in from behind, catches the ball but also the player. Straight red or just a yellow?",
+    "startSeconds": 0,
+    "decision": "red_card",
+    "decisionLabel": "Red Card",
+    "explanation": "The referee issued a straight red card for serious foul play. The tackle endangered the safety of the opponent despite making contact with the ball.",
+    "varInvolved": true
+  },
+  {
+    "id": "clip_003",
+    "youtubeId": "dQw4w9WgXcQ",
+    "title": "Simulation or Foul? — La Liga",
+    "competition": "La Liga",
+    "season": "2023/24",
+    "teams": "Barcelona vs Atletico Madrid",
+    "context": "Striker goes down under minimal contact in the box. Penalty or simulation?",
+    "startSeconds": 0,
+    "decision": "no_foul",
+    "decisionLabel": "No Foul — Simulation",
+    "explanation": "After VAR review, the referee reversed the penalty decision. The contact was deemed insufficient to cause the fall — yellow card for simulation instead.",
+    "varInvolved": true
+  }
+]
